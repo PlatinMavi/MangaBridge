@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %} MangaBridge {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'Index.css' %}">
+    <link rel="stylesheet" href="{% static 'MangaView.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Poppins:wght@500&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <script src="https://kit.fontawesome.com/8ae22b070a.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="navbar">
+        <a href=""><i class="fa-solid fa-house icon"></i></a>
+        <a href="" class="search"><i class="fa-solid fa-magnifying-glass icon"></i></a>
+        <a href="" class="search"><i class="fa-solid fa-user icon"></i></a>
+        <a href=""><i class="fa-solid fa-clipboard icon"></i></a>
+        <a href=""><i class="fa-solid fa-book icon"></i></a>
+        <a href=""><i class="fa-solid fa-bookmark icon"></i></a>
+        <a href=""><i class="fa-brands fa-discord icon"></i></a>
+        <a href=""><i class="fa-solid fa-filter icon"></i></a>
+    </div>
+
+    <div class="sidebar">
+        <a href="" class="down"><i class="fa-solid fa-envelope icon"></i></a>
+        <a href="" class="downe"><i class="fa-solid fa-question icon"></i></a>
+    </div>
+    <div class="container">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+    <div class="footer"><p>footer</p></div>
+</body>
+</html>

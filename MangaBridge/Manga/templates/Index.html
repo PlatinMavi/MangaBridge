@@ -1,0 +1,44 @@
+{%extends "Boilerplate.html"%}
+
+{% block title %}Ana Sayfa{% endblock %}
+{%load static%}
+{%block content%}
+    <div class="mangabridge">
+        <h1 class="titleslogan">MangaBridge</h1>
+        <h2 class="slogan">Tüm mangalarınızın buluştuğu yer.</h2>
+    </div>
+
+    <div class="topfivecontainer">
+        <h3 class="topfivetitle">MangaBridge'nin en çok okunanları.</h3>
+        {%for x in Mostview%}
+            <div class="capsule_wrapper">
+                <div class="capsule">
+                    <a href="details/{{ x.id }}" class="capsule_link">
+                        <div class="capsule_gradient"></div><img src="/media/{{ x.manga_image }}" alt="" class="capsule_image">
+                    </a>
+                </div>
+                <h3 class="manga_title_capsule">{{x.manga_name}}</h3>
+            </div>
+        {%endfor%}
+    </div>
+    <hr class="hr">
+    <div class="mangaholder">
+        <h2 class="recentupdated">En son güncellenen mangalar,</h2>
+
+        {% for a in Chapter %}
+                <div class="manga_wrapper">
+                    <h2 class="manga_title">{{a.manga_name}}</h2>
+                    <a href="details/{{ a.id }}" class="manga_link_recent">
+                        <div class="manga_container">
+                            <div class="manga_image_container">
+                                <div class="manga_image_container_overlay"><div class="dikey_cizgi"></div><div class="yatay_cizgi"></div></div>
+                                <a href="details/{{ a.id }}" class="manga_link_recent"><img src="/media/{{ a.manga_image }}" alt="" class="manga_image">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </a>
+        {%endfor%}
+    </div>
+    
+{%endblock%}
