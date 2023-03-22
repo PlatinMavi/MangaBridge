@@ -25,5 +25,9 @@ class Chapter(models.Model):
 
     def __str__(self):
         return f"{self.chapter_number}, {self.manga}, {self.fansub}"
+    
+class Duyuru(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(max_length=1024)
 
     

@@ -1,0 +1,120 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/Index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@400;700&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8ae22b070a.js" crossorigin="anonymous"></script>
+    <style>
+        .B{
+            font-family: 'Bebas Neue', cursive;
+        }
+        .D{
+            font-family: 'Dosis', sans-serif;
+        }
+        .M{
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-rose-100 to-teal-100">
+
+    <nav class="w-full fixed top-0 left-0 z-50 p-2">
+        <div class=" p-4 flex my-2 mx-auto w-max">
+            <i class="fa-solid fa-house fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-user fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-book fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-bookmark fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-question fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-magnifying-glass fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-up-right-from-square fa-2xl text-white mx-4 w-max"></i>
+            <i class="fa-solid fa-bullhorn fa-2xl fa-2xl text-white mx-4 w-max"></i>
+        </div>
+    </nav>
+
+    <div class="relative">
+        <img src="static/background.png" alt="" class="h-96 w-screen object-none object-center saturate-150 contrast-50 ">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <h1 class="text-9xl text-white M font-semibold">MangaBridge</h1>
+            <h2 class="text-white text-3xl M italic my-4">Bütün Mangalarınızın Buluştuğu Yer</h2>
+        </div>
+    </div>
+
+    <div class="container mt-6 mx-auto">
+
+        <h2 class="text-4xl D w-max mx-auto my-2">En çok Okunanlar</h2>
+        <hr class="h-px my-4 bg-gray-900 border-0">
+        <div class="grid grid-cols-5 mx-auto">
+            {%for x in MostView%}
+                <div class="capsule_wrapper mx-auto">
+                    <div class="capsule">
+                        <a href="details/{{ x.id }}" class="capsule_link">
+                            <!-- <div class="capsule_gradient"></div> -->
+                            <img src="/media/{{ x.manga_image }}" alt="" class="capsule_image">
+                        </a>
+                    </div>
+                    <h3 class="text-3xl M w-max mx-auto my-3">{{x.manga_name}}</h3>
+                </div>
+            {%endfor%}
+        </div>
+
+        <hr class="h-px my-4 bg-gray-900 border-0">
+        <div class="rounded-2xl w-full shadow-lg my-10 bg-teal-50">
+            <table class="my-auto ">
+                <tr class="">
+                    <td>
+                        <i class="fa-solid fa-bullhorn fa-2xl mx-4 w-max py-5" style="font-size: 80px;"></i>
+                    </td>
+                    <td>
+                        <h4 class="text-4xl D w-max p-6 ">{{Duyuru.title}}</h4>
+                    </td>
+                </tr>
+            </table>
+            <p class="px-6 py-4 text-md pb-8">{{Duyuru.description}}</p>
+        </div>
+
+        <hr class="h-px my-4 bg-gray-900 border-0">
+        <div class="grid grid-cols-3 gap-6 mx-auto my-8">
+            <div class="w-sm bg-gradient-to-r from-rose-200 to-teal-200 h-64">
+                <i class="fa-solid fa-up-right-from-square mx-4 w-max my-8" style="font-size: 80px;"></i>
+                <h3 class="text-4xl D w-max p-6 mx-auto">Yeni Bölümler</h3>
+            </div>
+            {%for x in Chapter%}
+                <a class="" href="details/{{ x.id }}">
+                    <h3 class="text-2xl D w-max mx-3">{{x.manga_name}}</h3>
+                    <div class=" h-56 w-sm bg-teal-50">
+                        <table>
+                            <tr>
+                                <td><img src="media/{{x.manga_image}} " alt="" class="object-fill h-56 w-40"></td>
+                                <td>
+                                    <h4 class=" px-8 text-3xl D">{{x.manga}}.Bölüm</h4>
+                                    <button class="rounded-xl ">
+
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            {%endfor%}
+        </div>
+        <hr class="h-px my-4 bg-gray-900 border-0">
+        <div class="w-full h-96 bg-white rounded-lg my-5">
+            <p class="mx-auto pt-36 text-3xl">Reklam</p>
+        </div>
+    </div>
+
+    <footer class="h-72 bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+
+    </footer>
+</body>
+</html>
