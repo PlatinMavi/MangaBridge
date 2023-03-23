@@ -162,6 +162,7 @@ body{
 
 .capsule_wrapper{
     display: inline-block;
+    width: 240px;
 }
 
 .manga_title_capsule{

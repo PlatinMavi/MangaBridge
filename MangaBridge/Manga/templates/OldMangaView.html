@@ -1,0 +1,41 @@
+{%extends "Boilerplate.html"%}
+{% block title %}{{Manga.manga_name}}{% endblock %}
+{%load static%}
+{%block content%}
+<div class="container_manga">
+    <div class="wrapper_chapter">
+        <img src="/media/{{ Manga.manga_image }}" alt="" class="thumbnail_chapter">
+        <table class="table_manga">
+            <tr>
+                <td>
+                    <h1 class="chapter_name">{{Manga.manga_name}}</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2 class="idk">
+                        Okuyabileceğiniz Çevirmenler :
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        {%for g in Fansub%}
+                            <button class="button_fansub" name="fansubs" value="{{g.id}}">{{g.fansub_name}}</button>
+                        {%endfor%}
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {%for j in AvailableChapter%}
+                        <p>j.chapter_number</p>
+                    {%endfor%}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+{%endblock%}
