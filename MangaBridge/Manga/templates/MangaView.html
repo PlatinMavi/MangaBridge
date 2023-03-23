@@ -1,41 +1,123 @@
-{%extends "Boilerplate.html"%}
-{% block title %}{{Manga.manga_name}}{% endblock %}
 {%load static%}
-{%block content%}
-<div class="container_manga">
-    <div class="wrapper_chapter">
-        <img src="/media/{{ Manga.manga_image }}" alt="" class="thumbnail_chapter">
-        <table class="table_manga">
-            <tr>
-                <td>
-                    <h1 class="chapter_name">{{Manga.manga_name}}</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h2 class="idk">
-                        Okuyabileceğiniz Çevirmenler :
-                    </h2>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <form method="post">
-                        {% csrf_token %}
-                        {%for g in Fansub%}
-                            <button class="button_fansub" name="fansubs" value="{{g.id}}">{{g.fansub_name}}</button>
-                        {%endfor%}
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {%for j in AvailableChapter%}
-                        <p>j.chapter_number</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/Index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@400;700&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8ae22b070a.js" crossorigin="anonymous"></script>
+    <style>
+        .B{
+            font-family: 'Bebas Neue', cursive;
+        }
+        .D{
+            font-family: 'Dosis', sans-serif;
+        }
+        .M{
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-rose-100 to-teal-100">
+
+    <nav class="w-full fixed top-0 left-0 z-50 p-2 mb-16">
+        <div class=" p-4 flex my-2 mx-auto w-max">
+            <a href="/"><i class="fa-solid fa-house fa-2xl text-white mx-4 w-max"></i></a>
+            <a href="Archive.html"><i class="fa-solid fa-book fa-2xl text-white mx-4 w-max"></i></a>
+            <a href="SSS.html"><i class="fa-solid fa-question fa-2xl text-white mx-4 w-max"></i></a>
+            <a href=""><i class="fa-solid fa-magnifying-glass fa-2xl text-white mx-4 w-max"></i></a>
+            <a href="Upload.html"><i class="fa-solid fa-up-right-from-square fa-2xl text-white mx-4 w-max"></i></a>
+            <a href="Duyuru.html"><i class="fa-solid fa-bullhorn fa-2xl fa-2xl text-white mx-4 w-max"></i></a>
+            <a href=""><i class="fa-solid fa-bookmark fa-2xl text-white mx-4 w-max"></i></a>
+            <a href=""><i class="fa-solid fa-user fa-2xl text-white mx-4 w-max"></i></a>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto py-10">
+
+        <div class="w-full h-96 bg-white rounded-lg my-16">
+            <p class="mx-auto pt-36 text-3xl w-max ">Reklam</p>
+        </div>
+
+        <div class="grid grid-flow-row-dense grid-cols-5 grid-rows-1 w-full gap-10 mx-auto flex">
+            <div class="w-64 bg-teal-50 col-span-1">
+                <img src="/media/{{ Manga.manga_image }}" alt="" class="flex-none h-96 w-64">
+                <h1 class="text-2xl M my-4 mx-5">{{Manga.manga_name}}</h1>
+                <hr class="h-px my-4 bg-gray-900 border-0">
+                <h4 class="text-2xl M my-4 mx-5">{{BolumSayi}} Bölüm</h4>
+                <hr class="h-px my-4 bg-gray-900 border-0">
+                <h3 class="text-2xl M my-4 mx-5">Görüntülenme:</h3>
+                <p class="text-lg M my-1 mx-5">{{Manga.manga_views}}</p>
+                <hr class="h-px my-4 bg-gray-900 border-0">
+                <h5 class="text-lg M mx-3">Açıklama:</h5>
+                <p class="M p-2 text-sm">{{Manga.manga_description}}</p>
+                <hr class="h-px my-4 bg-gray-900 border-0">
+                <h4 class="text-xl mx-auto w-max M my-2">Kategori</h4>
+                <div class="grid grid-cols-2 mx-auto gap-1">
+                    
+                    {%for x in Kategori%}
+                        <p class="mx-auto shadow-lg p-3">{{x.category.Category_name}}</p>
                     {%endfor%}
-                </td>
-            </tr>
-        </table>
+                </div>
+                <hr class="h-px my-4 bg-gray-900 border-0">
+            </div>
+            <div class="col-span-4 ">
+                <div class="bg-teal-50 p-10">
+                    <h2 class="M text-2xl">Çevirmenler: {%for x in Fansub%} <button class="mx-8 rounded-xl my-1 text-xl bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-2 text-white D"
+                        type="button"
+                        onclick="collapser('{{x.fansub_name}}')">
+                        {{x.fansub_name}}
+                    </button>{%endfor%} </h2>
+                    <hr class="h-px my-4 bg-gray-900 border-0">
+                    {%for x in Fansub%}
+                        <div class=" !visible hidden" id="{{x.fansub_name}}">
+                            <h3 class="M text-3xl w-max mx-auto my-5">{{x.fansub_name}}</h3>
+                            <div class="grid grid-cols-5 gap-8 mx-auto">
+                                {%for y in Chapter%}
+                                    {%if y.fansub.fansub_name == x.fansub_name %}
+                                        <a href="{{y.chapter_url}}" target="_blank">
+                                            <div class="h-20 bg-gradient-to-r from-rose-100 to-teal-100 p-4 object-center">
+                                                <h5 class="M text-2xl w-max mx-auto mt-1">{{y.chapter_number}}. Bölüm</h5>
+                                            </div>
+                                        </a>
+                                    {%endif%}
+                                {%endfor%}
+                            </div>
+                        </div>
+                    {%endfor%}
+                    <script>
+                        function collapser(x){
+                            var d = document.getElementById(x)
+                            if (d.classList.contains("hidden") == true) {
+                                d.classList.remove("hidden")
+                            } else if (d.classList.contains("hidden") == false) {
+                                d.classList.add("hidden")
+                            }  
+                        }
+                    </script>
+
+                    <div class="w-full h-96 bg-white rounded-lg my-10">
+                        <p class="mx-auto pt-36 text-3xl w-max ">Reklam</p>
+                    </div>
+
+                </div>
+                <div class="bg-teal-50 p-10 my-5">
+                    <p class="mx-auto text-3xl w-max pt-3">
+                        yorumlar(work in progress)
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
     </div>
-</div>
-{%endblock%}
+</body>
+</html>
